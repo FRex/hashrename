@@ -42,7 +42,10 @@ def handle_file(fpath: str) -> None:
 
 def main():
     for fname in sys.argv[1:]:
-        handle_file(fname)
+        try:
+            handle_file(fname)
+        except FileNotFoundError as err:
+            print(f"{err}")
 
 
 if __name__ == "__main__":
