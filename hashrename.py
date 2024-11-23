@@ -27,10 +27,21 @@ def myhashfile(fpath: str) -> str:
 
 
 def handle_file(fpath: str) -> None:
-    digest = myhashfile(fpath)[:20]
+    fulldigest = myhashfile(fpath)
+    digest = fulldigest[:20]
     dpath, fname, extensions = mysplitext(fpath)
-    if fname.endswith(f"-{digest}"):
-        print(f"{fpath} already ends with -{digest} - skipping.")
+
+    # check if we should skip this file and print nice message about it
+    if fulldigest == fname:
+        print(f"{fpath} already is named {fulldigest} - skipping.")
+        return
+
+    if fulldigest in fname:
+        print(f"{fpath} already contains {fulldigest} - skipping.")
+        return
+
+    if f"-{digest}" in fname:
+        print(f"{fpath} already contains -{digest} - skipping.")
         return
 
     if fname == digest:
