@@ -11,6 +11,10 @@ SHA1 is also decently fast as available in Python by default, as seen in
 and every other algorithm that is faster is not a builtin, so SHA1 has a
 good balance of prior use for files online, availability and speed.
 
+Requires (and works on any) Python 3.6 or above, as tested using
+[https://github.com/FRex/anypython](https://github.com/FRex/anypython),
+due to usage of [f-strings](https://docs.python.org/3/reference/lexical_analysis.html#f-strings).
+
 # Example Usage
 
 ```
