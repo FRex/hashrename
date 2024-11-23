@@ -32,6 +32,11 @@ def handle_file(fpath: str) -> None:
     if fname.endswith(f"-{digest}"):
         print(f"{fpath} already ends with -{digest} - skipping.")
         return
+
+    if fname == digest:
+        print(f"{fpath} already is named just {digest} - skipping.")
+        return
+
     goalpath = os.path.join(dpath, f"{fname}-{digest}{extensions}")
     try:
         os.rename(fpath, goalpath)
