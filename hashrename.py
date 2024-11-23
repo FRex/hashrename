@@ -16,7 +16,7 @@ def mysplitext(fpath: str) -> tuple:
 
 def myhashfile(fpath: str) -> str:
     """Similar to hashlib.file_digest from 3.11 and up."""
-    ret = hashlib.sha512()
+    ret = hashlib.sha1()  # TODO: make this an option later?
     with open(fpath, "rb") as fhandle:
         while True:
             data = fhandle.read(1024 * 1024)
@@ -27,7 +27,7 @@ def myhashfile(fpath: str) -> str:
 
 
 def handle_file(fpath: str) -> None:
-    digest = myhashfile(fpath)[:16]
+    digest = myhashfile(fpath)[:20]
     dpath, fname, extensions = mysplitext(fpath)
     if fname.endswith(f"-{digest}"):
         print(f"{fpath} already ends with -{digest} - skipping.")
