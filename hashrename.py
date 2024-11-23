@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+"""Python script to smartly rename the file to its SHA1 hash or part of it."""
 import hashlib
 import sys
 import os
@@ -27,6 +28,7 @@ def myhashfile(fpath: str) -> str:
 
 
 def handle_file(fpath: str) -> None:
+    """Hash and rename a given file or print that it already has hash in the name."""
     fulldigest = myhashfile(fpath)
     digest = fulldigest[:20]
     dpath, fname, extensions = mysplitext(fpath)
@@ -48,15 +50,17 @@ def handle_file(fpath: str) -> None:
         print(f"{fpath} already is named just {digest} - skipping.")
         return
 
+    # no need to skip so rename
     goalpath = os.path.join(dpath, f"{fname}-{digest}{extensions}")
     try:
         os.rename(fpath, goalpath)
         print(f"{fpath} renamed to {goalpath}")
-    except FileExistsError as err:
+    except FileExistsError as err:  # TODO: other errors, messages and add retry
         print(err)
 
 
 def main():
+    """Main function."""
     for fname in sys.argv[1:]:
         try:
             handle_file(fname)
